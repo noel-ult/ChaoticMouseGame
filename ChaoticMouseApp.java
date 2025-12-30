@@ -291,11 +291,12 @@ public class ChaoticMouseApp {
         }
         
         // Create game window
-        gameFrame = new JFrame("🎯 Click Speed Challenge - CHAOS MODE!");
+        gameFrame = new JFrame("🎯 CYBER COMBAT ARENA - CHAOS PROTOCOL ENGAGED!");
         gameFrame.setSize(800, 600);
         gameFrame.setLocationRelativeTo(null);
         gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gameFrame.setLayout(new BorderLayout());
+        gameFrame.getContentPane().setBackground(new Color(10, 10, 25));
         
         // Create score panel
         createGameScorePanel();
@@ -321,19 +322,38 @@ public class ChaoticMouseApp {
     }
     
     private void createGameScorePanel() {
-        scorePanel = new JPanel();
-        scorePanel.setBackground(new Color(45, 45, 45));
-        scorePanel.setPreferredSize(new Dimension(800, 80));
+        scorePanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                
+                // Futuristic gradient background
+                GradientPaint gradient = new GradientPaint(
+                    0, 0, new Color(20, 0, 40),
+                    0, getHeight(), new Color(10, 10, 25)
+                );
+                g2d.setPaint(gradient);
+                g2d.fillRect(0, 0, getWidth(), getHeight());
+                
+                // Glowing border
+                g2d.setColor(new Color(0, 255, 255));
+                g2d.setStroke(new BasicStroke(2));
+                g2d.drawLine(0, getHeight() - 2, getWidth(), getHeight() - 2);
+            }
+        };
+        scorePanel.setPreferredSize(new Dimension(800, 90));
         scorePanel.setLayout(new GridLayout(1, 2, 20, 0));
-        scorePanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        scorePanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
         
-        scoreLabel = new JLabel("Score: 0", SwingConstants.CENTER);
-        scoreLabel.setFont(new Font("Arial", Font.BOLD, 32));
-        scoreLabel.setForeground(Color.WHITE);
+        scoreLabel = new JLabel("<html><b>SCORE: 0</b></html>", SwingConstants.CENTER);
+        scoreLabel.setFont(new Font("Courier New", Font.BOLD, 36));
+        scoreLabel.setForeground(new Color(0, 255, 255));
         
-        timerLabel = new JLabel("Time: 60s", SwingConstants.CENTER);
-        timerLabel.setFont(new Font("Arial", Font.BOLD, 32));
-        timerLabel.setForeground(new Color(0, 255, 100));
+        timerLabel = new JLabel("<html><b>TIME: 60s</b></html>", SwingConstants.CENTER);
+        timerLabel.setFont(new Font("Courier New", Font.BOLD, 36));
+        timerLabel.setForeground(new Color(255, 0, 255));
         
         scorePanel.add(scoreLabel);
         scorePanel.add(timerLabel);
@@ -342,17 +362,36 @@ public class ChaoticMouseApp {
     private void createGamePanel() {
         gamePanel = new JPanel();
         gamePanel.setLayout(null);
-        gamePanel.setBackground(new Color(30, 30, 30));
+        gamePanel.setBackground(new Color(10, 10, 25));
         
-        targetButton = new JButton("🎯");
-        targetButton.setFont(new Font("Arial", Font.BOLD, 24));
+        targetButton = new JButton("🎯") {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                
+                // Glowing effect
+                g2d.setColor(new Color(255, 0, 100, 100));
+                g2d.fillOval(-5, -5, getWidth() + 10, getHeight() + 10);
+                
+                // Gradient background
+                GradientPaint gradient = new GradientPaint(
+                    0, 0, new Color(255, 0, 100),
+                    0, getHeight(), new Color(255, 0, 200)
+                );
+                g2d.setPaint(gradient);
+                g2d.fillOval(0, 0, getWidth(), getHeight());
+                
+                super.paintComponent(g);
+            }
+        };
+        targetButton.setFont(new Font("Arial", Font.BOLD, 26));
         targetButton.setFocusPainted(false);
         targetButton.setBorderPainted(false);
         targetButton.setContentAreaFilled(false);
-        targetButton.setOpaque(true);
-        targetButton.setBackground(new Color(255, 50, 50));
+        targetButton.setOpaque(false);
         targetButton.setForeground(Color.WHITE);
-        targetButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        targetButton.setBorder(BorderFactory.createLineBorder(new Color(0, 255, 255), 3));
         targetButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         targetButton.addActionListener(e -> onTargetClicked());
         
@@ -364,9 +403,9 @@ public class ChaoticMouseApp {
         timeRemaining = GAME_DURATION;
         gameActive = true;
         
-        scoreLabel.setText("Score: 0");
-        timerLabel.setText("Time: " + GAME_DURATION + "s");
-        timerLabel.setForeground(new Color(0, 255, 100));
+        scoreLabel.setText("<html><b>SCORE: 0</b></html>");
+        timerLabel.setText("<html><b>TIME: " + GAME_DURATION + "s</b></html>");
+        timerLabel.setForeground(new Color(255, 0, 255));
         
         // Enable chaotic effects for maximum difficulty
         appState.chaoticEnabled = true;
@@ -384,13 +423,13 @@ public class ChaoticMouseApp {
         if (!gameActive) return;
         
         score++;
-        scoreLabel.setText("Score: " + score);
+        scoreLabel.setText("<html><b>SCORE: " + score + "</b></html>");
         moveTargetToRandomPosition();
         
         // Visual feedback
-        targetButton.setBackground(new Color(255, 150, 0));
+        targetButton.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 0), 5));
         Timer flashTimer = new Timer(100, e -> {
-            targetButton.setBackground(new Color(255, 50, 50));
+            targetButton.setBorder(BorderFactory.createLineBorder(new Color(0, 255, 255), 3));
             ((Timer) e.getSource()).stop();
         });
         flashTimer.setRepeats(false);
@@ -409,10 +448,10 @@ public class ChaoticMouseApp {
     
     private void updateGameTimer() {
         timeRemaining--;
-        timerLabel.setText("Time: " + timeRemaining + "s");
+        timerLabel.setText("<html><b>TIME: " + timeRemaining + "s</b></html>");
         
         if (timeRemaining <= 10) {
-            timerLabel.setForeground(new Color(255, 50, 50));
+            timerLabel.setForeground(new Color(255, 0, 100));
         } else if (timeRemaining <= 30) {
             timerLabel.setForeground(new Color(255, 200, 0));
         }
@@ -431,7 +470,10 @@ public class ChaoticMouseApp {
         controlPanel.updateGameStatus(false);
         
         String message = String.format(
-            "Game Over!\n\nFinal Score: %d clicks\nClicks per second: %.2f\n\nThat was CHAOS MODE - Great job!",
+            "=== MISSION COMPLETE ===\n\n" +
+            ">> FINAL SCORE: %d HITS\n" +
+            ">> PRECISION: %.2f hits/sec\n\n" +
+            "// CHAOS PROTOCOL SURVIVED! //",
             score,
             score / (double) GAME_DURATION
         );
@@ -439,7 +481,7 @@ public class ChaoticMouseApp {
         JOptionPane.showMessageDialog(
             gameFrame,
             message,
-            "🏆 Game Over",
+            "🏆 CYBER COMBAT COMPLETE",
             JOptionPane.INFORMATION_MESSAGE
         );
         
