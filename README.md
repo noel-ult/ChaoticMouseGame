@@ -1,5 +1,10 @@
 # Chaotic Mouse Application - Java Edition
 
+<!-- documentation-navigation -->
+[Developer guide](docs/PROJECT_GUIDE.md) · [Source reference](docs/REFERENCE.md) · [Contributing](CONTRIBUTING.md)
+<!-- /documentation-navigation -->
+
+
 A fun and chaotic mouse experience application converted from Python to Java with enhanced GUI design.
 
 ## 📋 Overview
