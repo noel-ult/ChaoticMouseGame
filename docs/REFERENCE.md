@@ -1,7 +1,6 @@
 # ChaoticMouseGame source reference
 
-
-Source reviewed: [`58e7d5e58c0c`](https://github.com/noel-ult/ChaoticMouseGame/commit/58e7d5e58c0c4514ca872b25c4347350bbc6aebf).
+Source reviewed: [`d9627688880f`](https://github.com/noel-ult/ChaoticMouseGame/commit/d9627688880f27da915c0a1c1feefdd0ffe095b4).
 
 This reference records the checked-in source, scripts, configuration names, and route declarations. It is a navigation aid; service availability and successful test execution require separate verification.
 
@@ -9,8 +8,11 @@ This reference records the checked-in source, scripts, configuration names, and 
 
 Historical plans/reports describe their own revision; use current source when they disagree.
 
+- [CONTRIBUTING.md](../CONTRIBUTING.md)
 - [FUTURISTIC_UI_CHANGES.md](../FUTURISTIC_UI_CHANGES.md)
 - [README.md](../README.md)
+- [docs/PROJECT_GUIDE.md](../docs/PROJECT_GUIDE.md)
+- [docs/REFERENCE.md](../docs/REFERENCE.md)
 
 ## Source and configuration map
 
